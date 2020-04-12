@@ -39,8 +39,11 @@ dependencies:
   firebase_storage: ^3.1.5
   extended_image: ^0.7.2
   photo_view: ^0.9.2
-  flutter_sound:
-    git: https://github.com/darwin-morocho/flutter_sound.git
+  scroll_to_index: ^1.0.6
+  flutter_keyboard_visibility: ^0.8.0
+  flutter_inner_drawer: ^0.5.5
+  flare_flutter: ^2.0.3
+  flutter_sound: 3.1.6
       
 dev_dependencies:
   flutter_test:
@@ -61,6 +64,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/cancel.svg
+   - assets/down-arrow.svg
    - assets/my_location/best_place.svg
    - assets/login/man.svg
    - assets/login/woman.svg
@@ -78,6 +82,13 @@ flutter:
    - assets/chat/three_arrow.svg
    - assets/chat/dot.svg
    - assets/chat/camera.svg
+   - assets/chat/reddit.svg
+   - assets/chat/search.svg
+   - assets/chat/menu.svg
+   - assets/chat/back.svg
+   #RIVE
+   - assets/rive/flip.flr
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
