@@ -64,6 +64,7 @@ class _DraggableRecordState extends State<DraggableRecord> {
 
   _init() async {
     try {
+      _recorder = await FlutterSoundRecorder().initialize();
       final bool isGranted = await Permission.microphone.isGranted;
       if (isGranted) {
         _permissionStatus.value = RecordPermissionStatus.granted;
@@ -74,11 +75,14 @@ class _DraggableRecordState extends State<DraggableRecord> {
   }
 
   _startRecording() async {
-    _recorder = await FlutterSoundRecorder().initialize();
+    if (_recorder.isRecording) {
+      await _recorder.stopRecorder();
+    }
     Directory tempDir = await getTemporaryDirectory();
     File outputFile =
         File('${tempDir.path}/${DateTime.now().microsecondsSinceEpoch}.aac');
-    _path = await _recorder.startRecorder(uri: outputFile.path);
+    _path = await _recorder.startRecorder(
+        uri: outputFile.path, requestPermission: false);
     _recorderSubs =
         _recorder.onRecorderStateChanged.listen((RecordStatus status) {
       //print(status);
@@ -94,8 +98,6 @@ class _DraggableRecordState extends State<DraggableRecord> {
   _stopRecording() async {
     _dragUnderway.value = false;
     await _recorderSubs?.cancel();
-    await _release();
-    _recorder = null;
     if (_path != null && _recordingTime.value > 1) {
       widget.onRecorded(_path);
     } else if (_permissionStatus.value == RecordPermissionStatus.granted) {
